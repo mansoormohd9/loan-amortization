@@ -1,9 +1,36 @@
 <template>
-  <div id="app">
-    <AmortizationForm></AmortizationForm>
-    <Schedule></Schedule>
-    <Summary></Summary>
+  <div>
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Loan Amortization Calculator
+          </h1>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="tile is-ancestor">
+        <div class="tile is-vertical">
+          <div class="tile">
+            <div class="tile is-parent is-vertical">
+              <AmortizationForm></AmortizationForm>
+            </div>
+            <div class="tile is-parent">
+              <Summary></Summary>
+            </div>
+          </div>
+          <div class="tile is-parent">
+            <Schedule></Schedule>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
+  
+  
+  
 </template>
 
 <script lang="ts">

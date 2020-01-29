@@ -1,5 +1,13 @@
 <template>
-  <div>Schedule</div>
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        Schedule
+      </p>
+    </header>
+    <div class="card-content">
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
