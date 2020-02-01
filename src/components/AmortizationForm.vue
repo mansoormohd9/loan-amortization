@@ -9,9 +9,9 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <input class="input is-danger" v-model="loanAmount" type="number">
+                <input class="input" :class="{'is-danger': formErrors.loanAmountError}" v-model="loanAmount" type="number">
               </div>
-              <p class="help is-danger">
+              <p class="help is-danger" v-if="formErrors.loanAmountError">
                 This field is required
               </p>
             </div>
@@ -25,9 +25,9 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <input class="input is-danger" type="number" v-model="noOfEmis">
+                <input class="input" :class="{'is-danger': formErrors.noOfEmisError}" type="number" v-model="noOfEmis">
               </div>
-              <p class="help is-danger">
+              <p class="help is-danger" v-show="formErrors.noOfEmisError">
                 This field is required
               </p>
             </div>
@@ -41,9 +41,9 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <input class="input is-danger" type="number" v-model="aInterestRate">
+                <input class="input" :class="{'is-danger': formErrors.aInterestRateError}" type="number" v-model="aInterestRate">
               </div>
-              <p class="help is-danger">
+              <p class="help is-danger" v-show="formErrors.aInterestRateError">
                 This field is required
               </p>
             </div>
@@ -77,12 +77,15 @@ export default class AmortizationForm extends Vue {
   mInterestRate: number = 0;
   loanSummary: LoanSummary = initializeLoanSummary();
   emiSchedule: Array<EmiSchedule> = [];
+  formErrors: any = this.initializeFormErrors();
 
   calculate() {
-    this.mInterestRate = (this.aInterestRate/12) * 0.01;
-    this.calculateLoanSummary();
-    this.calculateLoanSchedule();
-    this.updateSummaryAndSchedule();
+    if(this.isValidForm()){
+      this.mInterestRate = (this.aInterestRate/12) * 0.01;
+      this.calculateLoanSummary();
+      this.calculateLoanSchedule();
+      this.updateSummaryAndSchedule();
+    }
   }
 
   get monthlyEmi() {
@@ -143,6 +146,23 @@ export default class AmortizationForm extends Vue {
   updateSummaryAndSchedule() {
     this.$emit('summary-updated', this.loanSummary);
     this.$emit('schedule-updated', this.emiSchedule);
+  }
+
+  initializeFormErrors() {
+    return {
+      loanAmountError: false,
+      noOfEmisError: false,
+      aInterestRateError: false
+    };
+  }
+
+  isValidForm() {
+    this.formErrors = {
+      loanAmountError: this.loanAmount <= 0,
+      noOfEmisError: this.noOfEmis <= 0,
+      aInterestRateError: this.aInterestRate <=0
+    }
+    return !this.formErrors.loanAmountError && !this.formErrors.noOfEmisError && !this.formErrors.aInterestRateError;
   }
 }
 </script>
