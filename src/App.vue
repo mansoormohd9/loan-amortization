@@ -39,7 +39,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
 import AmortizationForm from './components/AmortizationForm.vue';
 import Schedule from './components/Schedule.vue';
 import Summary from './components/Summary.vue';
@@ -48,7 +47,6 @@ import { initializeLoanSummary } from "./utils/util";
 
 @Component({
   components: {
-    HelloWorld,
     AmortizationForm,
     Schedule,
     Summary,
