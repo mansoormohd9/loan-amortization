@@ -3,9 +3,9 @@
     <p class="panel-heading">
       Summary
     </p>
-    <a class="panel-block">
-      <b-field horizontal label="From">
-        <p>Test</p>
+    <a class="panel-block" v-for="(summaryItem, index) in summary" :key="index">
+      <b-field horizontal :label="summaryItem.label">
+        <p>{{summaryItem.value}}</p>
       </b-field>
     </a>
   </article>

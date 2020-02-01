@@ -47,6 +47,7 @@ import AmortizationForm from './components/AmortizationForm.vue';
 import Schedule from './components/Schedule.vue';
 import Summary from './components/Summary.vue';
 import { SummaryItem, EmiSchedule } from "./types/types";
+import { initializeLoanSummary } from "./utils/util";
 
 @Component({
   components: {
@@ -57,7 +58,7 @@ import { SummaryItem, EmiSchedule } from "./types/types";
   },
 })
 export default class App extends Vue {
-  summary: Array<SummaryItem> = [];
+  summary: Array<SummaryItem> = initializeLoanSummary();
   emiSchedule: Array<EmiSchedule> = [];
 
   updateSummary(summary: Array<SummaryItem>) {

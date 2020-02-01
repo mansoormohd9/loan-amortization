@@ -1,6 +1,6 @@
 export interface SummaryItem {
   label: string,
-  value: string
+  value: number
 }
 
 export interface Summary {

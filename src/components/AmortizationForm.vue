@@ -66,12 +66,16 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import Summary from './Summary.vue';
+import { SummaryItem, EmiSchedule } from '../types/types';
+import { initializeLoanSummary } from "../utils/util";
 
 @Component
 export default class AmortizationForm extends Vue {
   loanAmount: number = 0;
   noOfEmis: number = 0;
   aInterestRate: number = 0;
+  loanSummary: Array<SummaryItem> = initializeLoanSummary();
+  emiSchedule: Array<EmiSchedule> = [];
 
   calculate() {
     this.calculateLoanSummary();
@@ -79,17 +83,15 @@ export default class AmortizationForm extends Vue {
   }
 
   calculateLoanSummary() {
-    let loanSummary;
-    this.$emit('summaryUpdated', loanSummary);
+    this.$emit('summaryUpdated', this.loanSummary);
   }
 
   calculateLoanSchedule() {
-    let emiSchedule = Array;
-    this.$emit('scheduleUpdated', emiSchedule);
+    this.$emit('scheduleUpdated', this.emiSchedule);
   }
 
   reset() {
-
+    this.loanSummary = initializeLoanSummary();
   }
 }
 </script>
