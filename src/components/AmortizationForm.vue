@@ -65,6 +65,7 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
+import Summary from './Summary.vue';
 
 @Component
 export default class AmortizationForm extends Vue {
@@ -73,7 +74,18 @@ export default class AmortizationForm extends Vue {
   aInterestRate: number = 0;
 
   calculate() {
-    
+    this.calculateLoanSummary();
+    this.calculateLoanSchedule();
+  }
+
+  calculateLoanSummary() {
+    let loanSummary;
+    this.$emit('summaryUpdated', loanSummary);
+  }
+
+  calculateLoanSchedule() {
+    let emiSchedule = Array;
+    this.$emit('scheduleUpdated', emiSchedule);
   }
 
   reset() {

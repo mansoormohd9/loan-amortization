@@ -12,10 +12,13 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
+import { EmiSchedule } from '../types/types';
 
 @Component
 export default class Schedule extends Vue {
+  @Prop({required: true}) schedule!: Array<EmiSchedule>;
+
   scheduleHeaders: any = this.initializeHeaders();
 
   initializeHeaders() {

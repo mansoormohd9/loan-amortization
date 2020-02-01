@@ -13,7 +13,7 @@ export interface Summary {
   totalInterest: SummaryItem
 }
 
-export interface Schedule {
+export interface EmiSchedule {
   period: number,
   emi: number,
   interest: number,

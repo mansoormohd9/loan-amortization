@@ -12,10 +12,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
+import { SummaryItem } from '../types/types';
 
 @Component
 export default class Summary extends Vue {
-  
+  @Prop({required: true}) summary!: Array<SummaryItem>;
 }
 </script>

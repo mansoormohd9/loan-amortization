@@ -15,14 +15,21 @@
         <div class="tile is-vertical">
           <div class="tile">
             <div class="tile is-parent is-vertical">
-              <AmortizationForm></AmortizationForm>
+              <AmortizationForm
+              @summary-updated="updateSummary"
+              @schedule-updated="updateSchedule">
+              </AmortizationForm>
             </div>
             <div class="tile is-parent">
-              <Summary></Summary>
+              <Summary
+              :summary="summary">
+              </Summary>
             </div>
           </div>
           <div class="tile is-parent">
-            <Schedule></Schedule>
+            <Schedule
+            :schedule="emiSchedule">
+            </Schedule>
           </div>
         </div>
       </div>
@@ -39,6 +46,7 @@ import HelloWorld from './components/HelloWorld.vue';
 import AmortizationForm from './components/AmortizationForm.vue';
 import Schedule from './components/Schedule.vue';
 import Summary from './components/Summary.vue';
+import { SummaryItem, EmiSchedule } from "./types/types";
 
 @Component({
   components: {
@@ -48,7 +56,18 @@ import Summary from './components/Summary.vue';
     Summary,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  summary: Array<SummaryItem> = [];
+  emiSchedule: Array<EmiSchedule> = [];
+
+  updateSummary(summary: Array<SummaryItem>) {
+    this.summary = summary;
+  }
+
+  updateSchedule(emiSchedule: Array<EmiSchedule>) {
+    this.emiSchedule = emiSchedule;
+  }
+}
 </script>
 
 <style>
