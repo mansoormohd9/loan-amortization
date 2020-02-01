@@ -89,6 +89,10 @@ export default class AmortizationForm extends Vue {
     return (this.loanAmount * this.mInterestRate)/(1-Math.pow(1+this.mInterestRate, -this.noOfEmis));
   }
 
+  currentInterest(remAmount: number, intRate: number) {
+    return  ((remAmount * intRate * 0.01)/12);
+  }
+
   calculateLoanSummary() {
     this.loanSummary["loanAmount"].value = this.loanAmount;
     this.loanSummary["noOfEmis"].value = this.noOfEmis;
@@ -100,7 +104,28 @@ export default class AmortizationForm extends Vue {
   }
 
   calculateLoanSchedule() {
-    
+    let remAmount = this.loanAmount;
+    let period = 1;
+    this.emiSchedule.push({
+      period: 0,
+      emi: 0,
+      interest: 0,
+      principal: 0,
+      balance: this.loanAmount
+    })
+    while(period <= this.noOfEmis) {
+      let curEmiData = {
+        period: period,
+        emi: this.monthlyEmi,
+        interest: this.currentInterest(remAmount, this.aInterestRate),
+        principal: this.monthlyEmi - this.currentInterest(remAmount, this.aInterestRate),
+        balance: 0
+      };
+      curEmiData.balance = this.emiSchedule[period-1].balance - curEmiData.principal;
+      this.emiSchedule.push(curEmiData);
+      remAmount = curEmiData.balance;
+      period++;
+    }
   }
 
   reset() {

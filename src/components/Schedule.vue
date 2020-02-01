@@ -6,7 +6,7 @@
       </p>
     </header>
     <div class="card-content">
-      <b-table :columns="scheduleHeaders"></b-table>
+      <b-table :data="schedule" :columns="scheduleHeaders"></b-table>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default class Schedule extends Vue {
       { field: "period", label: "Period", numeric: true },
       { field: "emi", label: "Emi", numeric: true },
       { field: "interest", label: "Interest", numeric: true },
-      { field: "principle", label: "Principle", numeric: true },
+      { field: "principal", label: "Principal", numeric: true },
       { field: "balance", label: "Balance", numeric: true },
     ]
   }
