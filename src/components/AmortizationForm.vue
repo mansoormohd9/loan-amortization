@@ -66,7 +66,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import Summary from './Summary.vue';
-import { SummaryItem, EmiSchedule } from '../types/types';
+import { LoanSummary, EmiSchedule } from '../types/types';
 import { initializeLoanSummary } from "../utils/util";
 
 @Component
@@ -74,24 +74,44 @@ export default class AmortizationForm extends Vue {
   loanAmount: number = 0;
   noOfEmis: number = 0;
   aInterestRate: number = 0;
-  loanSummary: Array<SummaryItem> = initializeLoanSummary();
+  mInterestRate: number = 0;
+  loanSummary: LoanSummary = initializeLoanSummary();
   emiSchedule: Array<EmiSchedule> = [];
 
   calculate() {
+    this.mInterestRate = (this.aInterestRate/12) * 0.01;
     this.calculateLoanSummary();
     this.calculateLoanSchedule();
+    this.updateSummaryAndSchedule();
+  }
+
+  get monthlyEmi() {
+    return (this.loanAmount * this.mInterestRate)/(1-Math.pow(1+this.mInterestRate, -this.noOfEmis));
   }
 
   calculateLoanSummary() {
-    this.$emit('summaryUpdated', this.loanSummary);
+    this.loanSummary["loanAmount"].value = this.loanAmount;
+    this.loanSummary["noOfEmis"].value = this.noOfEmis;
+    this.loanSummary["annualInterestRate"].value = this.aInterestRate * 0.01;
+    this.loanSummary["monthlyInterestRate"].value = this.mInterestRate;
+    this.loanSummary["mothlyEmi"].value = this.monthlyEmi;
+    this.loanSummary["totalLoanAmount"].value = this.monthlyEmi * this.noOfEmis;
+    this.loanSummary["totalInterest"].value = (this.monthlyEmi * this.noOfEmis) - this.loanAmount;
   }
 
   calculateLoanSchedule() {
-    this.$emit('scheduleUpdated', this.emiSchedule);
+    
   }
 
   reset() {
     this.loanSummary = initializeLoanSummary();
+    this.emiSchedule = [];
+    this.updateSummaryAndSchedule();
+  }
+
+  updateSummaryAndSchedule() {
+    this.$emit('summary-updated', this.loanSummary);
+    this.$emit('schedule-updated', this.emiSchedule);
   }
 }
 </script>

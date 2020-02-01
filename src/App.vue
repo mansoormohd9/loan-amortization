@@ -20,7 +20,7 @@
               @schedule-updated="updateSchedule">
               </AmortizationForm>
             </div>
-            <div class="tile is-parent">
+            <div class="tile is-parent is-6">
               <Summary
               :summary="summary">
               </Summary>
@@ -35,9 +35,6 @@
       </div>
     </section>
   </div>
-  
-  
-  
 </template>
 
 <script lang="ts">
@@ -46,7 +43,7 @@ import HelloWorld from './components/HelloWorld.vue';
 import AmortizationForm from './components/AmortizationForm.vue';
 import Schedule from './components/Schedule.vue';
 import Summary from './components/Summary.vue';
-import { SummaryItem, EmiSchedule } from "./types/types";
+import { LoanSummary, EmiSchedule } from "./types/types";
 import { initializeLoanSummary } from "./utils/util";
 
 @Component({
@@ -58,10 +55,10 @@ import { initializeLoanSummary } from "./utils/util";
   },
 })
 export default class App extends Vue {
-  summary: Array<SummaryItem> = initializeLoanSummary();
+  summary: LoanSummary = initializeLoanSummary();
   emiSchedule: Array<EmiSchedule> = [];
 
-  updateSummary(summary: Array<SummaryItem>) {
+  updateSummary(summary: LoanSummary) {
     this.summary = summary;
   }
 

@@ -1,22 +1,27 @@
 <template>
-  <article class="panel is-primary">
-    <p class="panel-heading">
-      Summary
-    </p>
-    <a class="panel-block" v-for="(summaryItem, index) in summary" :key="index">
-      <b-field horizontal :label="summaryItem.label">
-        <p>{{summaryItem.value}}</p>
-      </b-field>
-    </a>
-  </article>
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        Schedule
+      </p>
+    </header>
+    <div class="card-content">
+      <table>
+        <tr v-for="(summaryItem, index) in summary" :key="index">
+          <td>{{summaryItem.label}}</td>
+          <td>{{summaryItem.value}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { SummaryItem } from '../types/types';
+import { LoanSummary } from '../types/types';
 
 @Component
 export default class Summary extends Vue {
-  @Prop({required: true}) summary!: Array<SummaryItem>;
+  @Prop({required: true}) summary!: LoanSummary;
 }
 </script>
