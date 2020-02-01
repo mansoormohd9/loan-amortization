@@ -1,12 +1,12 @@
 <template>
-  <div class="card">
+  <div class="card summaryTile">
     <header class="card-header">
       <p class="card-header-title">
         Schedule
       </p>
     </header>
     <div class="card-content">
-      <table>
+      <table class="summaryTable">
         <tr v-for="(summaryItem, index) in summary" :key="index">
           <td>{{summaryItem.label}}</td>
           <td>{{summaryItem.value}}</td>
@@ -25,3 +25,9 @@ export default class Summary extends Vue {
   @Prop({required: true}) summary!: LoanSummary;
 }
 </script>
+
+<style scoped>
+.summaryTile, .summaryTable{
+  width: 80%;
+}
+</style>

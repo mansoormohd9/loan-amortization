@@ -55,7 +55,7 @@
             <b-button type="is-info" v-on:click="calculate()" outlined>Calculate</b-button>
           </div>
           <div class="control">
-            <b-button type="is-info" outlined>Reset</b-button>
+            <b-button type="is-info" v-on:click="reset()" outlined>Reset</b-button>
           </div>
         </div>
       </form>

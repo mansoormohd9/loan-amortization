@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card scheduleTile">
     <header class="card-header">
       <p class="card-header-title">
         Schedule
@@ -37,3 +37,9 @@ export default class Schedule extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.scheduleTile{
+  width: 90%;
+}
+</style>
