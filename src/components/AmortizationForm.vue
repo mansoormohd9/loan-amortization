@@ -86,11 +86,15 @@ export default class AmortizationForm extends Vue {
   }
 
   get monthlyEmi() {
-    return (this.loanAmount * this.mInterestRate)/(1-Math.pow(1+this.mInterestRate, -this.noOfEmis));
+    return this.roundNumber((this.loanAmount * this.mInterestRate)/(1-Math.pow(1+this.mInterestRate, -this.noOfEmis)));
   }
 
   currentInterest(remAmount: number, intRate: number) {
     return  ((remAmount * intRate * 0.01)/12);
+  }
+
+  roundNumber(num: Number) {
+    return (Number)(num.toFixed(2));
   }
 
   calculateLoanSummary() {
@@ -104,6 +108,7 @@ export default class AmortizationForm extends Vue {
   }
 
   calculateLoanSchedule() {
+    this.emiSchedule = [];
     let remAmount = this.loanAmount;
     let period = 1;
     this.emiSchedule.push({
@@ -117,11 +122,12 @@ export default class AmortizationForm extends Vue {
       let curEmiData = {
         period: period,
         emi: this.monthlyEmi,
-        interest: this.currentInterest(remAmount, this.aInterestRate),
-        principal: this.monthlyEmi - this.currentInterest(remAmount, this.aInterestRate),
+        interest: this.roundNumber(this.currentInterest(remAmount, this.aInterestRate)),
+        principal: 0,
         balance: 0
       };
-      curEmiData.balance = this.emiSchedule[period-1].balance - curEmiData.principal;
+      curEmiData.principal = this.roundNumber(this.monthlyEmi - curEmiData.interest);
+      curEmiData.balance = this.roundNumber(this.emiSchedule[period-1].balance - curEmiData.principal);
       this.emiSchedule.push(curEmiData);
       remAmount = curEmiData.balance;
       period++;
