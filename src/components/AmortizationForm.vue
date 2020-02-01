@@ -9,7 +9,7 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <input class="input is-danger" type="number">
+                <input class="input is-danger" v-model="loanAmount" type="number">
               </div>
               <p class="help is-danger">
                 This field is required
@@ -20,12 +20,12 @@
 
         <div class="field is-horizontal">
           <div class="field-label is-normal">
-            <label class="label">Total No of Emi Payment</label>
+            <label class="label">Total No of Emi Payment's</label>
           </div>
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <input class="input is-danger" type="number">
+                <input class="input is-danger" type="number" v-model="noOfEmis">
               </div>
               <p class="help is-danger">
                 This field is required
@@ -41,7 +41,7 @@
           <div class="field-body">
             <div class="field">
               <div class="control">
-                <input class="input is-danger" type="number">
+                <input class="input is-danger" type="number" v-model="aInterestRate">
               </div>
               <p class="help is-danger">
                 This field is required
@@ -52,7 +52,7 @@
 
         <div class="field is-grouped is-grouped-right">
           <div class="control">
-            <b-button type="is-info" outlined>Calculate</b-button>
+            <b-button type="is-info" v-on:click="calculate()" outlined>Calculate</b-button>
           </div>
           <div class="control">
             <b-button type="is-info" outlined>Reset</b-button>
@@ -68,6 +68,16 @@ import { Vue, Component } from "vue-property-decorator";
 
 @Component
 export default class AmortizationForm extends Vue {
-  
+  loanAmount: number = 0;
+  noOfEmis: number = 0;
+  aInterestRate: number = 0;
+
+  calculate() {
+    
+  }
+
+  reset() {
+
+  }
 }
 </script>
