@@ -6,7 +6,12 @@
       </p>
     </header>
     <div class="card-content">
-      <b-table :data="schedule" :columns="scheduleHeaders"></b-table>
+      <b-table 
+      :data="schedule" 
+      :columns="scheduleHeaders"
+      :paginated="true"
+      :per-page="10">
+      </b-table>
     </div>
   </div>
 </template>
